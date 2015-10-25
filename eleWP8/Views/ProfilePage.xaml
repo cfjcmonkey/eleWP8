@@ -1,0 +1,94 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="eleWP8.Views.ProfilePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+    <UserControl.Resources>
+        <Style x:Key="OrderItemButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <StackPanel Background="Transparent">
+                            <StackPanel Orientation="Horizontal" MaxHeight="80">
+                                <TextBlock Text="{Binding restaurant_name}" FontSize="24"/>
+                                <TextBlock Text="{Binding total}" Foreground="Red" FontSize="20" Margin="6,0" VerticalAlignment="Bottom" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding created_at}" FontSize="20"/>
+                            <TextBlock Text="{Binding basket.Abstract}" TextWrapping="Wrap" TextTrimming="WordEllipsis" HorizontalAlignment="Left" Width="440"  MaxHeight="120" FontWeight="Light" FontSize="18"/>
+                            <TextBlock Text="{Binding address}" TextWrapping="Wrap" HorizontalAlignment="Left" Width="440"  MaxHeight="50" FontWeight="Light" FontSize="18" Foreground="Gray"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Margin" Value="6" />
+        </Style>
+    </UserControl.Resources>
+    
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel  Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="ele.me 外卖订餐" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <StackPanel x:Name="UserProfilePanel" Margin="9,0,0,0">
+                <StackPanel Orientation="Horizontal" Margin="0, 6">
+                    <TextBlock Text="{Binding username}" FontSize="32" Margin="3,0"/>
+                    <TextBlock Text="{Binding user_id}" FontSize="24" Foreground="Gray" VerticalAlignment="Bottom" Margin="3,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding mobile}" FontSize="24" Margin="3,0"/>
+                    <TextBlock Text="{Binding email}" FontSize="24" Margin="3,0"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="查看订单" Tap="LoadOrderBtn_Tap" FontSize="22"/>
+                <!--<TextBox Grid.Column="1" x:Name="UrlTxt" HorizontalAlignment="Stretch"/>-->
+            </Grid>
+            <ItemsControl x:Name="OrderListControl" Grid.Row="1">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource OrderItemButtonStyle}" Tap="OrderBtn_Tap" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>
