@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="zh-CN" />
-  <App xmlns="" ProductID="{93c73317-4baf-488d-9231-cf7082647c65}" Title="eleWP8" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="cfjmonkey" Description="order food in ele.me" Publisher="eleWP8" PublisherID="{a2f66131-0849-4303-b6ab-73a0310419f8}">
+  <App xmlns="" ProductID="{26a7d7bf-f5f8-43af-962a-6bb878a87a44}" Title="eleWP8" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="cfjmonkey" Description="order food in ele.me" Publisher="eleWP8" PublisherID="{a2f66131-0849-4303-b6ab-73a0310419f8}">
     <IconPath IsRelative="true" IsResource="false">Assets\eleAppIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
