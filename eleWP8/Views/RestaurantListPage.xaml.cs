@@ -21,6 +21,7 @@ namespace eleWP8.Views
         public int offset { get; set; }
         public int limit { get; set; }
         List<RestaurantBlock> restaurantList { get; set; }
+        RestaurantBlock restCache;
 
         public RestaurantListPage()
         {
@@ -67,18 +68,29 @@ namespace eleWP8.Views
             });
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void RestaurantBtn_Click(object sender, RoutedEventArgs e)
         {
             RestaurantBlock rest = (sender as Button).DataContext as RestaurantBlock;
-            string url = String.Format("{0}/{1}", eleAPI.host, rest.name_for_url);
-            WebBrowserTask webBrowserTask = new WebBrowserTask();
-            webBrowserTask.Uri = new Uri(url);
-            webBrowserTask.Show();
+            //string url = String.Format("{0}/{1}", eleAPI.host, rest.name_for_url);
+            //WebBrowserTask webBrowserTask = new WebBrowserTask();
+            //webBrowserTask.Uri = new Uri(url);
+            //webBrowserTask.Show();
+            restCache = rest;
+            NavigationService.Navigate(new Uri("/Views/MenuListPage.xaml", UriKind.Relative));
         }
 
         private void refreshPanel_RefreshRequested(object sender, EventArgs e)
         {
             UpdateMoreRestaurant();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if (e.Content is MenuListPage)
+            {
+                (e.Content as MenuListPage).restInfo = restCache;
+            }
         }
     }
 }

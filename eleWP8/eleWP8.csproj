@@ -97,6 +97,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\CartManagement.cs" />
     <Compile Include="Models\eleAPI.cs" />
     <Compile Include="Models\eleDataStructure.cs" />
     <Compile Include="Models\PullDownToRefreshPanel.cs" />
@@ -106,8 +107,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\BacketPage.xaml.cs">
+      <DependentUpon>BacketPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenuListPage.xaml.cs">
+      <DependentUpon>MenuListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlaceSelectionPage.xaml.cs">
       <DependentUpon>PlaceSelectionPage.xaml</DependentUpon>
@@ -128,7 +135,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\BacketPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MenuListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -168,6 +183,7 @@
     <Content Include="Assets\eleSmallIcon.png" />
     <Content Include="Assets\feature.settings.png" />
     <Content Include="Assets\next.png" />
+    <Content Include="Assets\questionmark.png" />
     <Content Include="Assets\sync.png" />
   </ItemGroup>
   <ItemGroup>

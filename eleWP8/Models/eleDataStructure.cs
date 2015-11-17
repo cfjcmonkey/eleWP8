@@ -258,6 +258,17 @@ namespace eleWP8
         public bool is_online_payment { get; set; }
         [DataMember]
         public bool is_open_time { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is RestaurantBlock)) return false;
+            return this.id == (obj as RestaurantBlock).id;
+        }
+
+        public override int GetHashCode()
+        {
+            return id.GetHashCode();
+        }
     }
 
     [DataContract]
@@ -325,6 +336,17 @@ namespace eleWP8
         {
             attributes = new List<FoodAttribute>();
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Food)) return false;
+            return this.id == (obj as Food).id;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.id.GetHashCode();
+        }
     }
 
     [DataContract]
@@ -332,5 +354,100 @@ namespace eleWP8
     {
         public string icon_color { get; set; }
         public string icon_name { get; set; }
+    }
+
+    [DataContract]
+    public class CartInfo
+    {
+        [DataMember]
+        public int deliver_amount { get; set; }
+        [DataMember]
+        public int discount_amount { get; set; }
+        [DataMember]
+        public List<List<FoodSimple>> groups { get; set; }
+        [DataMember]
+        public string id { get; set; }
+        [DataMember]
+        public bool is_address_too_far { get; set; }
+        [DataMember]
+        public int is_online_paid { get; set; }
+        [DataMember]
+        public int must_new_user { get; set; }
+        [DataMember]
+        public int must_pay_online { get; set; }
+        [DataMember]
+        public string phone { get; set; }
+        [DataMember]
+        public int restaurant_id { get; set; }
+        [DataMember]
+        public int restaurant_minimum_order_amount { get; set; }
+        [DataMember]
+        public string restaurant_name_for_url { get; set; }
+        [DataMember]
+        public int total { get; set; }
+        [DataMember]
+        public int user_id { get; set; }
+
+        public CartInfo()
+        {
+            groups = new List<List<FoodSimple>>();
+        }
+    }
+
+    [DataContract]
+    public class CartRequirePackage
+    {
+        [DataMember]
+        public CartInfo cart { get; set; }
+        [DataMember]
+        public string sig { get; set; }
+    }
+
+    [DataContract]
+    public class FoodSimple
+    {
+        [DataMember]
+        public int category_id { get; set; }
+        [DataMember]
+        public int id { get; set; }
+        [DataMember]
+        public string name { get; set; }
+        [DataMember]
+        public double price { get; set; }
+        [DataMember]
+        public int quantity { get; set; }
+        [DataMember]
+        public bool is_sold_out { get; set; }
+        [DataMember]
+        public bool is_understock { get; set; }
+        [DataMember]
+        public bool is_valid { get; set; }
+    }
+
+    [DataContract]
+    public class CartPushPackage
+    {
+        [DataMember]
+        public string cart_id { get; set; }
+        [DataMember]
+        public string sig { get; set; }
+        [DataMember]
+        public string type { get; set; }
+        [DataMember]
+        public int group_index { get; set; }
+        [DataMember]
+        public List<CartEntity> entities { get; set; }
+        [DataMember]
+        public string remove_type { get; set; }
+
+    }
+
+    [DataContract]
+    public class CartEntity
+    {
+        [DataMember]
+        public string id { get; set; }
+        [DataMember]
+        public int quantity { get; set; }
     }
 }

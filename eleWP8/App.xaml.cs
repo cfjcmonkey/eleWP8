@@ -8,6 +8,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using eleWP8.Resources;
 using System.IO.IsolatedStorage;
+using eleWP8.Models;
 
 namespace eleWP8
 {
@@ -15,6 +16,7 @@ namespace eleWP8
     {
         private IsolatedStorageSettings appSettings = IsolatedStorageSettings.ApplicationSettings;
         public bool IsLogin { get; set; }
+        //public CartManagement cartManagement { get; set; }
         /// <summary>
         ///提供对电话应用程序的根框架的轻松访问。
         /// </summary>
@@ -67,6 +69,7 @@ namespace eleWP8
             if (appSettings.Contains("user_id") == false) appSettings.Add("user_id", 0);
             if (appSettings.Contains("geohash") == false) appSettings.Add("geohash", "");
             IsLogin = false;
+            //cartManagement = new CartManagement();
         }
 
         // 激活应用程序(置于前台)时执行的代码

@@ -83,7 +83,8 @@ namespace eleWP8.Views
                         Txt_Username.Text = t.Result.ToString();
                         appSettings["user_id"] = t.Result;
                         SystemTray.SetIsVisible(this, false);
-                        NavigationService.Navigate(new Uri(String.Format(@"/Views/ProfilePage.xaml?user_id={0}", t.Result), UriKind.Relative));
+                        if (NavigationService.CanGoBack) NavigationService.GoBack();
+                        else NavigationService.Navigate(new Uri(String.Format(@"/Views/ProfilePage.xaml?user_id={0}", t.Result), UriKind.Relative));
                     });
                 }
                 else

@@ -24,6 +24,9 @@ namespace eleWP8
         public static DataContractJsonSerializer batchPackage_ser = new DataContractJsonSerializer(typeof(List<SingleResponsePackage>));
         public static DataContractJsonSerializer orderList_ser = new DataContractJsonSerializer(typeof(List<Order>));
         public static DataContractJsonSerializer userProfile_ser = new DataContractJsonSerializer(typeof(UserProfile));
+        public static DataContractJsonSerializer cartRequirePackage_ser = new DataContractJsonSerializer(typeof(CartRequirePackage));
+        public static DataContractJsonSerializer cartPushPackage_ser = new DataContractJsonSerializer(typeof(CartPushPackage));
+        public static DataContractJsonSerializer cartInfo_ser = new DataContractJsonSerializer(typeof(CartInfo));
 
         private static eleAPI _eleAPI = null;
         private eleAPI()
@@ -136,6 +139,49 @@ namespace eleWP8
             //mmstream.Position = 0;
             var orderList = orderList_ser.ReadObject(stream) as List<Order>;
             return orderList;
+        }
+
+        public async Task<CartRequirePackage> GetCartInfo()
+        {
+            string content = "{\"come_from\":\"mobile\"}";
+            MemoryStream sendStream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(sendStream);
+            writer.Write(content);
+            writer.Flush();
+            sendStream.Position = 0;
+            HttpResponseMessage response = await client.PostAsync(host + "/restapi/v1/carts", new StreamContent(sendStream));
+            response.EnsureSuccessStatusCode();
+            Stream stream = await response.Content.ReadAsStreamAsync();
+            var result = cartRequirePackage_ser.ReadObject(stream) as CartRequirePackage;
+            return result;
+        }
+
+        public async Task<CartInfo> UpdateCart(string cart_id, string sig, List<CartEntity> foodList)
+        {
+            var cart = new CartPushPackage()
+            {
+                 cart_id = cart_id,
+                 sig = sig,
+                 type = "entities_set",
+                 group_index = 0,
+                 entities = foodList,
+                 remove_type = "group"
+            };
+            MemoryStream sendStream = new MemoryStream();
+            cartPushPackage_ser.WriteObject(sendStream, cart);
+            sendStream.Position = 0;
+
+            var method = new HttpMethod("PATCH");
+            var request = new HttpRequestMessage(method, String.Format("{0}/restapi/v1/carts/{1}", host, cart_id))
+            {
+                Content = new StreamContent(sendStream)
+            };
+
+            HttpResponseMessage response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            Stream stream = await response.Content.ReadAsStreamAsync();
+            var result = cartInfo_ser.ReadObject(stream) as CartInfo;
+            return result;
         }
 
         public static string UrlEncode(string str)

@@ -192,11 +192,10 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Style="{StaticResource RestaurantItemButtonStyle}" Click="Button_Click" />
+                        <Button Style="{StaticResource RestaurantItemButtonStyle}" Click="RestaurantBtn_Click" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            
         </Grid>
     </Grid>
 
